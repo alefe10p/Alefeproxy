@@ -1,0 +1,23 @@
+#!/bin/bash
+
+set -e
+
+echo "[+] Instalando dependências..."
+apt update && apt install -y curl git build-essential pkg-config libssl-dev
+
+echo "[+] Instalando Rust..."
+curl https://sh.rustup.rs -sSf | sh -s -- -y
+source $HOME/.cargo/env
+
+echo "[+] Clonando o Alefeproxy..."
+git clone https://github.com/SEU_USUARIO_GITHUB/Alefeproxy /opt/alefeproxy
+cd /opt/alefeproxy
+
+echo "[+] Compilando..."
+cargo build --release
+
+echo "[+] Instalando binário..."
+cp target/release/alefeproxy /usr/local/bin/alefeproxy
+
+echo "[+] Instalação concluída!"
+echo "Execute com: alefeproxy"
